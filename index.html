@@ -1861,14 +1861,14 @@
                 return state.events[dateKey] || [];
             }
 
-            function hasWBEvent(dateKey) {
+            function hasAnyWBEvent(dateKey) {
                 const events = getEventsForDate(dateKey);
                 for (let i = 0; i < events.length; i++) {
-                    if (events[i].type === 'wb' && events[i].title === 'ВБ 2/2') {
+                    if (events[i].type === 'wb') {
                         return true;
-                    }
+                        }
                 }
-                return false;
+            return false;
             }
 
             function hasBirthdayEvent(dateKey) {
@@ -2208,12 +2208,10 @@
                         cell.classList.add('today');
                     }
 
-                    // ВБ — фиолетовый фон если есть WB событие
-                    if (hasWBEvent(dateKey)) {
+                    if (hasAnyWBEvent(dateKey)) {
                         cell.classList.add('wb-day');
                     }
 
-                    // ДР — розовый фон
                     if (hasBirthdayEvent(dateKey)) {
                         cell.classList.add('birthday-day');
                     }
