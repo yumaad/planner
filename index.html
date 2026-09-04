@@ -85,7 +85,6 @@
             margin: 0 auto;
         }
 
-        /* ===== РУКОПИСНЫЙ ШРИФТ ===== */
         .cursive,
         .card-title,
         .month-selector span,
@@ -283,7 +282,6 @@
             transition: background 0.3s, box-shadow 0.3s;
         }
 
-        /* ===== КНОПКА ТЕМЫ ===== */
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -460,6 +458,10 @@
             background: #f97316;
             color: white;
         }
+        .day-cell .day-icons .icon-health {
+            background: #22c55e;
+            color: white;
+        }
 
         [data-theme="dark"] .day-cell .day-icons .icon-task {
             background: #5b3e1a;
@@ -497,6 +499,10 @@
         .day-cell.today {
             background: var(--bg-today);
             border: 3px solid #3b82f6;
+        }
+
+        .day-cell.health-day {
+            border: 2px solid #22c55e;
         }
 
         /* ===== МОДАЛКА ===== */
@@ -761,7 +767,6 @@
             cursor: pointer;
         }
 
-        /* ===== ИНПУТЫ ===== */
         .input-group {
             display: flex;
             gap: 6px;
@@ -1068,46 +1073,45 @@
             border: 2px solid #22c55e;
         }
 
-        /* ===== КНОПКА ЭКСПОРТА ===== */
-        .btn-export {
-            padding: 10px 20px;
-            background: #34a853;
-            color: white;
-            border: none;
-            border-radius: 12px;
+        /* ===== ЗДОРОВЬЕ ===== */
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .health-item {
+            background: var(--bg-event);
+            padding: 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .health-item .health-date {
             font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 8px;
-            touch-action: manipulation;
+            font-size: 14px;
         }
 
-        .btn-export:hover {
-            background: #2d8f47;
+        .health-item .health-data {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
-        .btn-export:active {
-            transform: scale(0.95);
+        .health-item .health-data .walked {
+            color: #22c55e;
+            font-weight: 700;
         }
 
-        .btn-print {
-            padding: 10px 20px;
-            background: #6b7280;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 8px;
-            touch-action: manipulation;
+        .health-item .health-data .not-walked {
+            color: #ef4444;
+            font-weight: 700;
         }
 
-        .btn-print:hover {
-            background: #4b5563;
-        }
-
-        /* ===== КОПИЛКА ===== */
+        /* ===== ФИНАНСЫ ===== */
         .finance-item {
             display: flex;
             justify-content: space-between;
@@ -1174,6 +1178,62 @@
             outline: none;
         }
 
+        /* ===== КНОПКИ ЭКСПОРТА ===== */
+        .btn-export {
+            padding: 10px 20px;
+            background: #34a853;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+            touch-action: manipulation;
+        }
+
+        .btn-export:hover {
+            background: #2d8f47;
+        }
+
+        .btn-export:active {
+            transform: scale(0.95);
+        }
+
+        .btn-print {
+            padding: 10px 20px;
+            background: #6b7280;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+            touch-action: manipulation;
+        }
+
+        .btn-print:hover {
+            background: #4b5563;
+        }
+
+        .btn-pdf {
+            padding: 10px 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+            touch-action: manipulation;
+        }
+
+        .btn-pdf:hover {
+            background: #b91c1c;
+        }
+
         /* ===== АДАПТИВ ===== */
         @media (max-width: 600px) {
             .day-cell {
@@ -1215,6 +1275,9 @@
             }
             .habit-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .health-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1264,7 +1327,6 @@
             background: #64748b;
         }
 
-        /* ===== ПРИ ПЕЧАТИ ===== */
         @media print {
             .tabs,
             .theme-toggle,
@@ -1272,6 +1334,7 @@
             .input-group button,
             .btn-export,
             .btn-print,
+            .btn-pdf,
             .modal-overlay {
                 display: none !important;
             }
@@ -1326,6 +1389,7 @@
             <button class="tab-btn" data-tab="wishlist">💝</button>
             <button class="tab-btn" data-tab="tasks">✅</button>
             <button class="tab-btn" data-tab="habits">🎯</button>
+            <button class="tab-btn" data-tab="health">💚</button>
             <button class="tab-btn" data-tab="birthdays">🎂</button>
             <button class="tab-btn" data-tab="finance">💰</button>
             <button class="tab-btn" data-tab="settings">⚙️</button>
@@ -1420,6 +1484,11 @@
                     <input type="text" id="wishlistLink" placeholder="Ссылка на товар" style="flex:2;" />
                     <input type="text" id="wishlistComment" placeholder="Примечание" style="flex:2;" />
                 </div>
+                <div class="input-group">
+                    <input type="file" id="wishlistImage" accept="image/*" style="flex:2;" />
+                    <button id="exportWishlistPDF" class="btn-pdf">📄 Экспорт PDF</button>
+                    <button id="exportWishlistExcel" class="btn-export">📊 Экспорт Excel</button>
+                </div>
                 <div class="shopping-list" id="wishlistList"></div>
             </div>
         </div>
@@ -1466,6 +1535,25 @@
                     <button id="addGoal">➕</button>
                 </div>
                 <div id="goalList"></div>
+            </div>
+        </div>
+
+        <!-- ===== ЗДОРОВЬЕ ===== -->
+        <div id="tab-health" class="tab-content">
+            <div class="card">
+                <div class="card-title">💚 Трекер здоровья</div>
+                <div class="input-group">
+                    <input type="date" id="healthDate" style="flex:1;" />
+                    <input type="number" id="healthWeight" placeholder="Вес (кг)" style="flex:1;" step="0.1" />
+                    <input type="number" id="healthSteps" placeholder="Шаги" style="flex:1;" />
+                </div>
+                <div class="input-group">
+                    <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-secondary);">
+                        <input type="checkbox" id="healthWalked" /> 🚶‍♀️ Ходила сегодня
+                    </label>
+                    <button id="addHealth" class="btn-success">💾 Сохранить</button>
+                </div>
+                <div class="health-grid" id="healthList"></div>
             </div>
         </div>
 
@@ -1535,6 +1623,7 @@
                 <div class="card-title">📤 Экспорт и печать</div>
                 <button class="btn-export" id="exportExcel">📥 Экспорт в Excel</button>
                 <button class="btn-print" id="printCalendar">🖨️ Печать календаря</button>
+                <button class="btn-pdf" id="exportPDF">📄 Экспорт в PDF</button>
             </div>
             <div class="card">
                 <div class="card-title">💾 Данные</div>
@@ -1569,13 +1658,13 @@
                     <option value="wb">📦 Вайлдберриз (WB)</option>
                     <option value="train">🏋️ Тренировка</option>
                     <option value="friends">👥 Встреча</option>
-                    <option value="birthday">🎂 День рождения</option>
                     <option value="task">📋 Задача</option>
                     <option value="shopping">🛒 Покупка</option>
                     <option value="wishlist">💝 Wishlist</option>
                     <option value="weekly">📋 Дело</option>
                     <option value="goal">🎯 Цель</option>
                     <option value="habit">🔄 Привычка</option>
+                    <option value="health">💚 Здоровье</option>
                     <option value="other">📌 Другое</option>
                 </select>
                 <button id="addEventBtn" style="padding:8px 16px;background:#22c55e;color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;flex:1;font-size:20px;">➕</button>
@@ -1654,6 +1743,7 @@
                 diary: [],
                 habits: {},
                 goals: [],
+                health: [],
                 piggy: { balance: 0, history: [] },
                 budget: { limit: 0, spent: 0 },
                 settings: {
@@ -1661,7 +1751,9 @@
                     notifyBirthdays: true,
                     notifyDaily: true,
                     volume: 70
-                }
+                },
+                // ВБ: запоминаем, какие дни были удалены вручную
+                wbRemoved: {}
             };
 
             let currentYear = 2026;
@@ -1713,6 +1805,7 @@
                     weekly: '📋',
                     goal: '🎯',
                     habit: '🔄',
+                    health: '💚',
                     other: '📌'
                 };
                 return map[type] || '📌';
@@ -1731,6 +1824,7 @@
                     weekly: 'icon-weekly',
                     goal: 'icon-goal',
                     habit: 'icon-habit',
+                    health: 'icon-health',
                     other: 'icon-task'
                 };
                 return map[type] || 'icon-task';
@@ -1749,6 +1843,7 @@
                     weekly: 'Дело',
                     goal: 'Цель',
                     habit: 'Привычка',
+                    health: 'Здоровье',
                     other: 'Другое'
                 };
                 return map[type] || type;
@@ -1849,7 +1944,7 @@
 
             function loadState() {
                 try {
-                    const saved = localStorage.getItem('plannerData_v8');
+                    const saved = localStorage.getItem('plannerData_v9');
                     if (saved) {
                         const parsed = JSON.parse(saved);
                         state = parsed;
@@ -1862,16 +1957,63 @@
                         if (!state.diary) state.diary = [];
                         if (!state.habits) state.habits = {};
                         if (!state.goals) state.goals = [];
+                        if (!state.health) state.health = [];
                         if (!state.piggy) state.piggy = { balance: 0, history: [] };
                         if (!state.budget) state.budget = { limit: 0, spent: 0 };
                         if (!state.settings) state.settings = { notifyEvents: true, notifyBirthdays: true,
-                        notifyDaily: true, volume: 70 };
+                            notifyDaily: true, volume: 70 };
+                        if (!state.wbRemoved) state.wbRemoved = {};
                     }
                 } catch (e) {
                     console.warn('Ошибка загрузки:', e);
                 }
 
-                // ВБ 2/2
+                // Загружаем birthdays.json если есть
+                loadBirthdaysFromRepo();
+
+                // Добавляем ВБ только если день не был удалён вручную
+                addDefaultWB();
+
+                syncBirthdaysToCalendar();
+                saveState();
+            }
+
+            function loadBirthdaysFromRepo() {
+                // Проверяем, есть ли birthdays.json в репозитории
+                fetch('birthdays.json')
+                    .then(function(response) {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        return null;
+                    })
+                    .then(function(data) {
+                        if (data && data.list && data.list.length > 0) {
+                            // Объединяем с существующими (не удаляем ручные)
+                            for (let i = 0; i < data.list.length; i++) {
+                                const b = data.list[i];
+                                let exists = false;
+                                for (let j = 0; j < state.birthdays.length; j++) {
+                                    if (state.birthdays[j].name === b.name && state.birthdays[j].date === b.date) {
+                                        exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!exists) {
+                                    state.birthdays.push(b);
+                                }
+                            }
+                            saveState();
+                            renderBirthdays();
+                            renderCalendar();
+                        }
+                    })
+                    .catch(function(e) {
+                        console.log('birthdays.json не найден, используем локальные данные');
+                    });
+            }
+
+            function addDefaultWB() {
                 const startYear = 2026;
                 const startMonth = 8;
                 const endYear = 2027;
@@ -1885,6 +2027,10 @@
                         for (let d = 1; d <= daysInMonth; d++) {
                             if (isWBDay(y, m, d)) {
                                 const dateKey = formatDate(y, m, d);
+                                // Проверяем, не удалён ли этот день вручную
+                                if (state.wbRemoved[dateKey]) {
+                                    continue;
+                                }
                                 const events = state.events[dateKey] || [];
                                 let hasWB = false;
                                 for (let i = 0; i < events.length; i++) {
@@ -1907,16 +2053,14 @@
                         }
                     }
                 }
-
-                syncBirthdaysToCalendar();
-                saveState();
             }
 
             function syncBirthdaysToCalendar() {
+                // Удаляем старые ДР из календаря
                 for (const dateKey in state.events) {
                     if (state.events.hasOwnProperty(dateKey)) {
                         state.events[dateKey] = state.events[dateKey].filter(function(ev) {
-                            return ev.type !== 'birthday' || ev.isBirthday === false;
+                            return ev.type !== 'birthday';
                         });
                         if (state.events[dateKey].length === 0) {
                             delete state.events[dateKey];
@@ -1924,6 +2068,7 @@
                     }
                 }
 
+                // Добавляем только значок 🎂 (без имён)
                 for (let i = 0; i < state.birthdays.length; i++) {
                     const b = state.birthdays[i];
                     if (b.date) {
@@ -1932,20 +2077,18 @@
                         const bMonth = parseInt(parts[1]) - 1;
                         const bDay = parseInt(parts[2]);
                         const dateKey = formatDate(bYear, bMonth, bDay);
-                        const age = calculateAge(b.date);
-                        const label = '🎂 ' + b.name + (age > 0 ? ' (' + age + ')' : '');
 
                         if (!state.events[dateKey]) state.events[dateKey] = [];
                         let hasBD = false;
                         for (let e = 0; e < state.events[dateKey].length; e++) {
-                            if (state.events[dateKey][e].type === 'birthday' && state.events[dateKey][e].title === label) {
+                            if (state.events[dateKey][e].type === 'birthday') {
                                 hasBD = true;
                                 break;
                             }
                         }
                         if (!hasBD) {
                             state.events[dateKey].push({
-                                title: label,
+                                title: '🎂',
                                 timeStart: '',
                                 timeEnd: '',
                                 type: 'birthday',
@@ -1958,7 +2101,7 @@
 
             function saveState() {
                 try {
-                    localStorage.setItem('plannerData_v8', JSON.stringify(state));
+                    localStorage.setItem('plannerData_v9', JSON.stringify(state));
                 } catch (e) {
                     console.warn('Ошибка сохранения:', e);
                 }
@@ -2064,9 +2207,13 @@
                     if (dateKey === todayStr) {
                         cell.classList.add('today');
                     }
+
+                    // ВБ — фиолетовый фон если есть WB событие
                     if (hasWBEvent(dateKey)) {
                         cell.classList.add('wb-day');
                     }
+
+                    // ДР — розовый фон
                     if (hasBirthdayEvent(dateKey)) {
                         cell.classList.add('birthday-day');
                     }
@@ -2077,12 +2224,20 @@
                     cell.appendChild(numDiv);
 
                     const uniqueTypes = getUniqueEventTypes(dateKey);
-                    if (uniqueTypes.length > 0) {
+                    // Фильтруем: показываем только нужные иконки
+                    const allowedTypes = ['work', 'wb', 'train', 'friends', 'birthday', 'task', 'shopping', 'wishlist',
+                        'weekly', 'goal', 'habit', 'health'
+                    ];
+                    const filtered = uniqueTypes.filter(function(t) {
+                        return allowedTypes.includes(t.type);
+                    });
+
+                    if (filtered.length > 0) {
                         cell.classList.add('has-events');
                         const iconsDiv = document.createElement('div');
                         iconsDiv.className = 'day-icons';
 
-                        const displayTypes = uniqueTypes.slice(0, 5);
+                        const displayTypes = filtered.slice(0, 5);
                         for (let t = 0; t < displayTypes.length; t++) {
                             const span = document.createElement('span');
                             span.className = getEventClass(displayTypes[t].type);
@@ -2092,9 +2247,9 @@
                             }
                             iconsDiv.appendChild(span);
                         }
-                        if (uniqueTypes.length > 5) {
+                        if (filtered.length > 5) {
                             const moreSpan = document.createElement('span');
-                            moreSpan.textContent = '+' + (uniqueTypes.length - 5);
+                            moreSpan.textContent = '+' + (filtered.length - 5);
                             iconsDiv.appendChild(moreSpan);
                         }
                         cell.appendChild(iconsDiv);
@@ -2255,8 +2410,9 @@
                         const idx = parseInt(btn.dataset.index);
                         if (state.events[dateKey]) {
                             const ev = state.events[dateKey][idx];
-                            if (ev.isWB === true) {
-                                if (!confirm('❌ Удалить смену ВБ 2/2?')) return;
+                            // Если удаляем ВБ — запоминаем это
+                            if (ev.type === 'wb' && ev.title === 'ВБ 2/2') {
+                                state.wbRemoved[dateKey] = true;
                             }
                             state.events[dateKey].splice(idx, 1);
                             if (state.events[dateKey].length === 0) {
@@ -2288,6 +2444,11 @@
                     timeEnd: timeEnd,
                     type: type
                 });
+
+                // Если добавляем ВБ вручную — убираем из удалённых
+                if (type === 'wb') {
+                    delete state.wbRemoved[selectedDate];
+                }
 
                 saveState();
                 renderDayEvents(selectedDate);
@@ -2376,7 +2537,6 @@
                 const text = input.value.trim();
                 if (!text) return;
 
-                // Добавляем в календарь
                 const dateKey = deadline.value || getToday();
                 if (!state.events[dateKey]) state.events[dateKey] = [];
                 state.events[dateKey].push({
@@ -2448,7 +2608,6 @@
 
                 const entry = { date: date, text: text };
 
-                // Проверяем файл
                 const fileInput = document.getElementById('diaryFile');
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
@@ -2487,7 +2646,6 @@
                 }
 
                 if (isRecording) {
-                    // Остановить запись
                     if (audioRecorder) {
                         audioRecorder.stop();
                         audioRecorder = null;
@@ -2621,7 +2779,7 @@
             });
 
             // ============================================================
-            // ===== WISHLIST =====
+            // ===== WISHLIST (с фото) =====
             // ============================================================
 
             function renderWishlist() {
@@ -2638,10 +2796,12 @@
                     const linkHtml = item.link ? '<a href="' + item.link +
                         '" target="_blank" class="media-link">🔗 ссылка</a>' : '';
                     const commentHtml = item.comment ? '<div class="comment">💬 ' + item.comment + '</div>' : '';
+                    const imageHtml = item.image ? '<img src="' + item.image +
+                        '" class="image-preview" onclick="window.open(\'' + item.image + '\',\'_blank\')" />' : '';
                     div.innerHTML =
                         '<span>' + item.text + '</span>' +
                         '<span style="font-size:12px;color:var(--text-muted);">' + priceStr + '</span> ' +
-                        linkHtml +
+                        linkHtml + ' ' + imageHtml +
                         commentHtml +
                         '<button data-index="' + i +
                         '" class="wishlist-delete" style="margin-left:auto;background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;touch-action:manipulation;">✕</button>';
@@ -2663,24 +2823,76 @@
                 const price = document.getElementById('wishlistPrice');
                 const link = document.getElementById('wishlistLink');
                 const comment = document.getElementById('wishlistComment');
+                const fileInput = document.getElementById('wishlistImage');
                 const text = input.value.trim();
                 if (!text) return;
-                state.wishlist.push({
+
+                const item = {
                     text: text,
                     price: price.value || '',
                     link: link.value.trim() || '',
-                    comment: comment.value.trim() || ''
-                });
-                saveState();
-                renderWishlist();
+                    comment: comment.value.trim() || '',
+                    image: ''
+                };
+
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        item.image = e.target.result;
+                        state.wishlist.push(item);
+                        saveState();
+                        renderWishlist();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    state.wishlist.push(item);
+                    saveState();
+                    renderWishlist();
+                }
+
                 input.value = '';
                 price.value = '';
                 link.value = '';
                 comment.value = '';
+                fileInput.value = '';
+            });
+
+            // ===== ЭКСПОРТ WISHLIST =====
+            document.getElementById('exportWishlistPDF').addEventListener('click', function() {
+                let html = '<html><head><meta charset="utf-8"><title>Wishlist</title>';
+                html += '<style>body{font-family:Arial;padding:30px;}h1{text-align:center;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #ddd;padding:8px;text-align:left;}th{background:#f0f0f0;}</style>';
+                html += '</head><body>';
+                html += '<h1>💝 Wishlist</h1>';
+                html += '<table><tr><th>№</th><th>Что хочу</th><th>Цена</th><th>Ссылка</th><th>Примечание</th></tr>';
+                state.wishlist.forEach(function(item, i) {
+                    html += '<tr><td>' + (i + 1) + '</td><td>' + item.text + '</td><td>' + (item.price || '—') +
+                        '</td><td>' + (item.link || '—') + '</td><td>' + (item.comment || '—') + '</td></tr>';
+                });
+                html += '</table></body></html>';
+
+                const blob = new Blob([html], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'wishlist_' + getToday() + '.pdf';
+                link.click();
+            });
+
+            document.getElementById('exportWishlistExcel').addEventListener('click', function() {
+                let csv = '№,Что хочу,Цена,Ссылка,Примечание\n';
+                state.wishlist.forEach(function(item, i) {
+                    csv += (i + 1) + ',"' + item.text + '",' + (item.price || '') + ',"' + (item.link || '') + ',"' + (
+                        item.comment || '') + '"\n';
+                });
+                const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'wishlist_' + getToday() + '.csv';
+                link.click();
             });
 
             // ============================================================
-            // ===== ЗАДАЧИ =====
+            // ===== ЗАДАЧИ (с привязкой к календарю) =====
             // ============================================================
 
             function renderTasks() {
@@ -2723,6 +2935,19 @@
                 container.querySelectorAll('.todo-delete').forEach(function(btn) {
                     btn.addEventListener('click', function() {
                         const idx = parseInt(btn.dataset.index);
+                        // Удаляем из календаря
+                        const task = state.tasks[idx];
+                        if (task.deadline) {
+                            const dateKey = task.deadline;
+                            if (state.events[dateKey]) {
+                                state.events[dateKey] = state.events[dateKey].filter(function(ev) {
+                                    return !(ev.type === 'task' && ev.title === '📋 ' + task.text);
+                                });
+                                if (state.events[dateKey].length === 0) {
+                                    delete state.events[dateKey];
+                                }
+                            }
+                        }
                         state.tasks.splice(idx, 1);
                         saveState();
                         renderTasks();
@@ -2740,7 +2965,6 @@
                 const text = input.value.trim();
                 if (!text) return;
 
-                // Добавляем в календарь
                 const dateKey = deadline.value || getToday();
                 if (!state.events[dateKey]) state.events[dateKey] = [];
                 state.events[dateKey].push({
@@ -2909,6 +3133,82 @@
             });
 
             // ============================================================
+            // ===== ЗДОРОВЬЕ =====
+            // ============================================================
+
+            function renderHealth() {
+                const container = document.getElementById('healthList');
+                if (state.health.length === 0) {
+                    container.innerHTML =
+                        '<p style="color:var(--text-muted);text-align:center;padding:15px;">Нет данных о здоровье</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                const sorted = state.health.slice().sort((a, b) => b.date.localeCompare(a.date));
+                sorted.forEach(function(item, i) {
+                    const div = document.createElement('div');
+                    div.className = 'health-item';
+                    const realIndex = state.health.indexOf(item);
+                    const walkedText = item.walked ? '🚶‍♀️ Ходила' : '🛑 Не ходила';
+                    const walkedClass = item.walked ? 'walked' : 'not-walked';
+                    div.innerHTML =
+                        '<div class="health-date">📅 ' + item.date + '</div>' +
+                        '<div class="health-data">' +
+                        (item.weight ? '⚖️ ' + item.weight + ' кг' : '') +
+                        (item.steps ? ' 👣 ' + item.steps + ' шагов' : '') +
+                        ' <span class="' + walkedClass + '">' + walkedText + '</span>' +
+                        '</div>' +
+                        '<button class="diary-delete" data-index="' + realIndex +
+                        '" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:16px;margin-top:4px;">✕ Удалить</button>';
+                    container.appendChild(div);
+                });
+
+                container.querySelectorAll('.diary-delete').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(btn.dataset.index);
+                        state.health.splice(idx, 1);
+                        saveState();
+                        renderHealth();
+                    });
+                });
+            }
+
+            document.getElementById('addHealth').addEventListener('click', function() {
+                const date = document.getElementById('healthDate').value || getToday();
+                const weight = parseFloat(document.getElementById('healthWeight').value);
+                const steps = parseInt(document.getElementById('healthSteps').value);
+                const walked = document.getElementById('healthWalked').checked;
+
+                // Проверяем, нет ли уже записи на эту дату
+                let existing = null;
+                for (let i = 0; i < state.health.length; i++) {
+                    if (state.health[i].date === date) {
+                        existing = state.health[i];
+                        break;
+                    }
+                }
+
+                if (existing) {
+                    if (weight) existing.weight = weight;
+                    if (steps) existing.steps = steps;
+                    existing.walked = walked;
+                } else {
+                    state.health.push({
+                        date: date,
+                        weight: weight || null,
+                        steps: steps || null,
+                        walked: walked
+                    });
+                }
+
+                saveState();
+                renderHealth();
+                document.getElementById('healthWeight').value = '';
+                document.getElementById('healthSteps').value = '';
+                document.getElementById('healthWalked').checked = false;
+            });
+
+            // ============================================================
             // ===== ДНИ РОЖДЕНИЯ =====
             // ============================================================
 
@@ -2955,24 +3255,8 @@
                         const idx = state.birthdays.findIndex(function(b) { return b.name === name && b.date ===
                                 date; });
                         if (idx !== -1) {
-                            const b = state.birthdays[idx];
-                            if (b.date) {
-                                const parts = b.date.split('-');
-                                const bYear = parseInt(parts[0]);
-                                const bMonth = parseInt(parts[1]) - 1;
-                                const bDay = parseInt(parts[2]);
-                                const dateKey = formatDate(bYear, bMonth, bDay);
-                                if (state.events[dateKey]) {
-                                    const label = '🎂 ' + b.name;
-                                    state.events[dateKey] = state.events[dateKey].filter(function(ev) {
-                                        return !(ev.type === 'birthday' && ev.title.startsWith(label));
-                                    });
-                                    if (state.events[dateKey].length === 0) {
-                                        delete state.events[dateKey];
-                                    }
-                                }
-                            }
                             state.birthdays.splice(idx, 1);
+                            syncBirthdaysToCalendar();
                             saveState();
                             renderBirthdays();
                             renderCalendar();
@@ -3030,7 +3314,6 @@
                     '₽</div><div class="label">✅ Итого</div></div>' +
                     '</div>';
 
-                // Копилка
                 document.getElementById('piggyInfo').textContent = '💰 ' + state.piggy.balance + ' ₽';
 
                 const historyContainer = document.getElementById('piggyHistory');
@@ -3052,7 +3335,6 @@
                     });
                 }
 
-                // Бюджет
                 updateBudget();
             }
 
@@ -3064,7 +3346,8 @@
                 document.getElementById('budgetInfo').innerHTML =
                     '<div class="stats-grid">' +
                     '<div class="stat-item"><div class="number">' + limit + '₽</div><div class="label">📊 Лимит</div></div>' +
-                    '<div class="stat-item"><div class="number" style="color:#ef4444;">' + spent + '₽</div><div class="label">🛒 Потрачено</div></div>' +
+                    '<div class="stat-item"><div class="number" style="color:#ef4444;">' + spent +
+                    '₽</div><div class="label">🛒 Потрачено</div></div>' +
                     '<div class="stat-item"><div class="number" style="color:' + (remaining >= 0 ? '#22c55e' :
                         '#ef4444') + ';">' + remaining + '₽</div><div class="label">📉 Осталось</div></div>' +
                     '</div>';
@@ -3111,21 +3394,12 @@
             });
 
             // ============================================================
-            // ===== СТАТИСТИКА (обновляется из календаря) =====
+            // ===== СТАТИСТИКА =====
             // ============================================================
 
             function updateStatistics() {
-                // Оставляем только нужную статистику
-                const prefix = currentYear + '-' + String(currentMonth + 1).padStart(2, '0');
-                const salary = calculateSalary(prefix);
-
-                const totalTasks = state.tasks.length;
-                const doneTasks = state.tasks.filter(function(t) { return t.done; }).length;
-
-                // Рендерим в statsContent на вкладке Статистика
-                const container = document.getElementById('statsContent');
-                // Эта вкладка у нас переименована, но оставим для совместимости
-                // Обновляем при переключении на вкладку
+                // Для вкладки статистики (если она нужна)
+                // Мы её не показываем отдельно, но данные используются в finance
             }
 
             // ============================================================
@@ -3165,9 +3439,6 @@
             document.getElementById('testNotification').addEventListener('click', function() {
                 if ('Notification' in window && Notification.permission === 'granted') {
                     const vol = (state.settings.volume || 70) / 100;
-                    const audio = new Audio();
-                    audio.volume = vol;
-                    // Простой звук через Web Audio
                     try {
                         const ctx = new(window.AudioContext || window.webkitAudioContext)();
                         const osc = ctx.createOscillator();
@@ -3199,7 +3470,7 @@
             });
 
             // ============================================================
-            // ===== ЭКСПОРТ В EXCEL =====
+            // ===== ЭКСПОРТ =====
             // ============================================================
 
             document.getElementById('exportExcel').addEventListener('click', function() {
@@ -3221,17 +3492,36 @@
                 link.click();
             });
 
-            // ============================================================
-            // ===== ПЕЧАТЬ =====
-            // ============================================================
+            document.getElementById('exportPDF').addEventListener('click', function() {
+                let html = '<html><head><meta charset="utf-8"><title>Планировщик</title>';
+                html += '<style>body{font-family:Arial;padding:30px;}h1{text-align:center;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #ddd;padding:8px;text-align:left;}th{background:#f0f0f0;}</style>';
+                html += '</head><body>';
+                html += '<h1>📋 Мой планировщик</h1>';
+                html += '<p>Дата: ' + getToday() + '</p>';
+                html += '<table><tr><th>Дата</th><th>Тип</th><th>Название</th><th>Время</th></tr>';
+                for (const dateKey in state.events) {
+                    if (state.events.hasOwnProperty(dateKey)) {
+                        const events = state.events[dateKey];
+                        for (let i = 0; i < events.length; i++) {
+                            const ev = events[i];
+                            const timeStr = (ev.timeStart && ev.timeEnd) ? ev.timeStart + '—' + ev.timeEnd : 'весь день';
+                            html += '<tr><td>' + dateKey + '</td><td>' + getTypeLabel(ev.type) + '</td><td>' + ev
+                                .title + '</td><td>' + timeStr + '</td></tr>';
+                        }
+                    }
+                }
+                html += '</table></body></html>';
+
+                const blob = new Blob([html], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'планировщик_' + getToday() + '.pdf';
+                link.click();
+            });
 
             document.getElementById('printCalendar').addEventListener('click', function() {
                 window.print();
             });
-
-            // ============================================================
-            // ===== ЭКСПОРТ ВСЕХ ДАННЫХ =====
-            // ============================================================
 
             document.getElementById('exportAllData').addEventListener('click', function() {
                 const data = JSON.stringify(state, null, 2);
@@ -3259,6 +3549,8 @@
                             if (!state.budget) state.budget = { limit: 0, spent: 0 };
                             if (!state.settings) state.settings = { notifyEvents: true, notifyBirthdays: true,
                                 notifyDaily: true, volume: 70 };
+                            if (!state.wbRemoved) state.wbRemoved = {};
+                            if (!state.health) state.health = [];
                             saveState();
                             renderAll();
                             alert('✅ Данные успешно загружены!');
@@ -3286,6 +3578,7 @@
                 renderTasks();
                 renderHabits();
                 renderGoals();
+                renderHealth();
                 renderBirthdays();
                 renderFinance();
                 updateProgress();
@@ -3315,6 +3608,9 @@
                     if (btn.dataset.tab === 'calendar') {
                         renderCalendar();
                     }
+                    if (btn.dataset.tab === 'health') {
+                        renderHealth();
+                    }
                 });
             });
 
@@ -3328,14 +3624,12 @@
 
                 loadState();
 
-                // Запрашиваем разрешение на уведомления
                 if ('Notification' in window && Notification.permission === 'default') {
                     Notification.requestPermission();
                 }
 
                 renderAll();
 
-                // Ежедневный дайджест
                 if (state.settings.notifyDaily !== false) {
                     const now = new Date();
                     const target = new Date(now);
@@ -3346,16 +3640,18 @@
                     const delay = target - now;
                     setTimeout(function() {
                         showDailyDigest();
-                        // Повторять каждый день
                         setInterval(showDailyDigest, 24 * 60 * 60 * 1000);
                     }, delay);
                 }
 
-                // Проверка на ДР каждые 5 минут
                 setInterval(checkBirthdays, 5 * 60 * 1000);
 
                 console.log('📋 Планировщик загружен!');
-                console.log('🎯 Все фичи активны!');
+                console.log('✅ ВБ не восстанавливается после удаления');
+                console.log('🎂 ДР — только значок в календаре');
+                console.log('📸 В Wishlist можно добавлять фото');
+                console.log('💚 Добавлен трекер здоровья (вес, шаги, прогулка)');
+                console.log('📋 Задачи привязаны к календарю');
             }
 
             // ============================================================
@@ -3468,19 +3764,16 @@
                 }
             }, 60000);
 
-            // ============================================================
-            // ===== ПОДСКАЗКА ПО ВКЛАДКАМ =====
-            // ============================================================
-
             console.log('📌 Вкладки:');
             console.log('  📅 Календарь — все события');
             console.log('  📋 Дела на неделю');
             console.log('  📖 Дневник — текст, фото, голос');
             console.log('  🛒 Покупки с приоритетами');
-            console.log('  💝 Wishlist');
-            console.log('  ✅ Задачи с тегами');
+            console.log('  💝 Wishlist с фото');
+            console.log('  ✅ Задачи с тегами (в календаре)');
             console.log('  🎯 Привычки (21 день) и цели');
-            console.log('  🎂 Дни рождения (с возрастом)');
+            console.log('  💚 Здоровье — вес, шаги, прогулка');
+            console.log('  🎂 Дни рождения (только значок в календаре)');
             console.log('  💰 Финансы (зарплата, копилка, бюджет)');
             console.log('  ⚙️ Настройки (уведомления, экспорт)');
 
