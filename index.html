@@ -3295,8 +3295,6 @@
                     '<div class="stat-item"><div class="number">' + salary.gross + '₽</div><div class="label">📊 Доход до налогов</div></div>' +
                     '<div class="stat-item"><div class="number">' + salary.tax + '₽</div><div class="label">🧾 Налог 13%</div></div>' +
                     '<div class="stat-item"><div class="number">' + salary.bonus + '₽</div><div class="label">🎁 Бонус (до 15 числа)</div></div>' +
-                    '<div class="stat-item"><div class="number" style="color:#22c55e;">' + salary.net +
-                    '₽</div><div class="label">✅ Итого</div></div>' +
                     '</div>';
 
                 document.getElementById('piggyInfo').textContent = '💰 ' + state.piggy.balance + ' ₽';
@@ -3304,7 +3302,7 @@
                 const historyContainer = document.getElementById('piggyHistory');
                 if (state.piggy.history.length === 0) {
                     historyContainer.innerHTML =
-                        '<p style="color:var(--text-muted);text-align:center;padding:10px;">История пуста</p>';
+                    '<p style="color:var(--text-muted);text-align:center;padding:10px;">История пуста</p>';
                 } else {
                     historyContainer.innerHTML = '';
                     const history = state.piggy.history.slice().reverse();
@@ -3315,13 +3313,14 @@
                         div.innerHTML =
                             '<span class="finance-label">' + item.date + ' — ' + item.note + '</span>' +
                             '<span class="finance-amount" style="color:' + (item.amount >= 0 ? '#22c55e' :
-                                '#ef4444') + ';">' + sign + item.amount + ' ₽</span>';
+                            '#ef4444') + ';">' + sign + item.amount + ' ₽</span>';
                         historyContainer.appendChild(div);
-                    });
+                  });
                 }
 
                 updateBudget();
             }
+            
 
             function updateBudget() {
                 const limit = state.budget.limit || 0;
