@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>📋 Мой Планировщик</title>
     <style>
-        /* ===== ПЕРЕМЕННЫЕ ДЛЯ СВЕТЛОЙ/ТЁМНОЙ ТЕМЫ ===== */
         :root {
             --bg-body: #f0f4f8;
             --bg-card: #ffffff;
@@ -33,7 +32,6 @@
             --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
-        /* ===== ТЁМНАЯ ТЕМА ===== */
         [data-theme="dark"] {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
@@ -61,7 +59,6 @@
             --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
-        /* ===== ОБЩИЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -164,7 +161,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== КНОПКА ТЕМЫ ===== */
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -209,7 +205,6 @@
             display: none;
         }
 
-        /* ===== МЕСЯЦ ===== */
         .month-selector {
             display: flex;
             justify-content: space-between;
@@ -243,7 +238,6 @@
             color: var(--text-primary);
         }
 
-        /* ===== КАЛЕНДАРЬ ===== */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -379,7 +373,6 @@
             border: 3px solid #3b82f6;
         }
 
-        /* ===== МОДАЛКА ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -531,7 +524,6 @@
             opacity: 0.5;
         }
 
-        /* ===== СПИСКИ ===== */
         .todo-list {
             list-style: none;
         }
@@ -613,6 +605,13 @@
             text-decoration: underline;
         }
 
+        .shopping-list .item .comment {
+            font-size: 11px;
+            color: var(--text-muted);
+            width: 100%;
+            padding-left: 30px;
+        }
+
         .input-group {
             display: flex;
             gap: 6px;
@@ -657,14 +656,6 @@
             transform: scale(0.95);
         }
 
-        .input-group button.btn-danger {
-            background: #ef4444;
-        }
-
-        .input-group button.btn-danger:hover {
-            background: #dc2626;
-        }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -685,8 +676,9 @@
             color: var(--text-primary);
         }
 
-        .stats-grid .stat-item div {
+        .stats-grid .stat-item .label {
             color: var(--text-secondary);
+            font-size: 12px;
         }
 
         .badge {
@@ -712,19 +704,6 @@
             color: #f43f5e;
         }
 
-        .media-preview {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 8px;
-            margin-top: 4px;
-        }
-
-        .media-preview video {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 8px;
-        }
-
         .weekly-item {
             display: flex;
             align-items: center;
@@ -746,7 +725,6 @@
             color: var(--text-primary);
         }
 
-        /* ===== ЛЕГЕНДА В ТЁМНОЙ ТЕМЕ ===== */
         [data-theme="dark"] .badge-someday {
             background: #2d3a4f;
             color: #94a3b8;
@@ -762,7 +740,7 @@
             color: #f472b6;
         }
 
-        /* ===== АДАПТИВ ===== */
+        /* Адаптив */
         @media (max-width: 600px) {
             .day-cell {
                 min-height: 42px;
@@ -823,7 +801,6 @@
             }
         }
 
-        /* ===== СКРОЛЛБАР В ТЁМНОЙ ТЕМЕ ===== */
         [data-theme="dark"] ::-webkit-scrollbar {
             width: 8px;
         }
@@ -891,7 +868,7 @@
             <div class="card">
                 <div class="card-title">📋 Список дел на неделю</div>
                 <div class="input-group">
-                    <input type="text" id="weeklyInput" placeholder="Что сделать?" style="flex:3;" />
+                    <input type="text" id="weeklyInput" placeholder="Что сделать?" style="flex:2;" />
                     <input type="date" id="weeklyDeadline" style="flex:1;" />
                     <button id="addWeekly">➕</button>
                 </div>
@@ -913,7 +890,11 @@
                     <button id="addShopping">➕</button>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="shoppingMedia" placeholder="Ссылка на картинку или видео" style="flex:2;" />
+                    <input type="text" id="shoppingLink" placeholder="Ссылка на товар (маркетплейс)" style="flex:2;" />
+                    <input type="text" id="shoppingMedia" placeholder="Ссылка на картинку/видео" style="flex:2;" />
+                </div>
+                <div class="input-group">
+                    <input type="text" id="shoppingComment" placeholder="Примечание" style="flex:3;" />
                 </div>
                 <div class="shopping-list" id="shoppingList"></div>
             </div>
@@ -929,7 +910,11 @@
                     <button id="addWishlist">➕</button>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="wishlistMedia" placeholder="Ссылка на картинку или видео" style="flex:2;" />
+                    <input type="text" id="wishlistLink" placeholder="Ссылка на товар (маркетплейс)" style="flex:2;" />
+                    <input type="text" id="wishlistMedia" placeholder="Ссылка на картинку/видео" style="flex:2;" />
+                </div>
+                <div class="input-group">
+                    <input type="text" id="wishlistComment" placeholder="Примечание" style="flex:3;" />
                 </div>
                 <div class="shopping-list" id="wishlistList"></div>
             </div>
@@ -944,6 +929,9 @@
                     <input type="date" id="taskDeadline" style="flex:1;" />
                     <button id="addTask">➕</button>
                 </div>
+                <div class="input-group">
+                    <input type="text" id="taskComment" placeholder="Примечание" style="flex:3;" />
+                </div>
                 <ul class="todo-list" id="taskList"></ul>
             </div>
         </div>
@@ -955,7 +943,6 @@
                 <div class="input-group">
                     <input type="text" id="birthdayName" placeholder="Имя" style="flex:2;" />
                     <input type="date" id="birthdayDate" style="flex:1;" />
-                    <input type="number" id="birthdayAge" placeholder="Возраст" style="flex:1;" />
                     <button id="addBirthday">➕</button>
                 </div>
                 <div class="todo-list" id="birthdayList"></div>
@@ -971,7 +958,7 @@
         </div>
     </div>
 
-    <!-- ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== -->
+    <!-- КНОПКА ТЕМЫ -->
     <button class="theme-toggle" id="themeToggle" title="Переключить тему">
         <span class="icon-moon">🌙</span>
         <span class="icon-sun">☀️</span>
@@ -1016,10 +1003,7 @@
         (function() {
             'use strict';
 
-            // ============================================================
             // ===== ТЕМА =====
-            // ============================================================
-
             function getTheme() {
                 return localStorage.getItem('plannerTheme') || 'light';
             }
@@ -1029,21 +1013,12 @@
                 localStorage.setItem('plannerTheme', theme);
             }
 
-            function toggleTheme() {
-                const current = getTheme();
-                setTheme(current === 'light' ? 'dark' : 'light');
-            }
-
-            // Загружаем сохранённую тему
             setTheme(getTheme());
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                setTheme(getTheme() === 'light' ? 'dark' : 'light');
+            });
 
-            // Кнопка переключения
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-
-            // ============================================================
-            // ===== ОСТАЛЬНАЯ ЛОГИКА =====
-            // ============================================================
-
+            // ===== СОСТОЯНИЕ =====
             let state = {
                 events: {},
                 shopping: [],
@@ -1057,6 +1032,7 @@
             let currentMonth = 8;
             let selectedDate = null;
 
+            // ===== ВБ 2/2 =====
             function isWBDay(year, month, day) {
                 const startDate = new Date(2026, 8, 1);
                 const currentDate = new Date(year, month, day);
@@ -1065,9 +1041,22 @@
                 return (diffDays % 4) < 2;
             }
 
+            // ===== ВЫЧИСЛЕНИЕ ВОЗРАСТА =====
+            function calculateAge(birthDate) {
+                const today = new Date();
+                const birth = new Date(birthDate);
+                let age = today.getFullYear() - birth.getFullYear();
+                const m = today.getMonth() - birth.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                    age--;
+                }
+                return age;
+            }
+
+            // ===== ЗАГРУЗКА / СОХРАНЕНИЕ =====
             function loadState() {
                 try {
-                    const saved = localStorage.getItem('plannerData_v6');
+                    const saved = localStorage.getItem('plannerData_v7');
                     if (saved) {
                         const parsed = JSON.parse(saved);
                         state = parsed;
@@ -1082,6 +1071,7 @@
                     console.warn('Ошибка загрузки:', e);
                 }
 
+                // ВБ 2/2
                 const startYear = 2026;
                 const startMonth = 8;
                 const endYear = 2027;
@@ -1118,6 +1108,25 @@
                     }
                 }
 
+                // Дни рождения — синхронизация с календарём
+                syncBirthdaysToCalendar();
+                saveState();
+            }
+
+            function syncBirthdaysToCalendar() {
+                // Удаляем старые ДР из календаря
+                for (const dateKey in state.events) {
+                    if (state.events.hasOwnProperty(dateKey)) {
+                        state.events[dateKey] = state.events[dateKey].filter(function(ev) {
+                            return ev.type !== 'birthday' || ev.isBirthday === false;
+                        });
+                        if (state.events[dateKey].length === 0) {
+                            delete state.events[dateKey];
+                        }
+                    }
+                }
+
+                // Добавляем актуальные ДР с вычисленным возрастом
                 for (let i = 0; i < state.birthdays.length; i++) {
                     const b = state.birthdays[i];
                     if (b.date) {
@@ -1126,9 +1135,13 @@
                         const bMonth = parseInt(parts[1]) - 1;
                         const bDay = parseInt(parts[2]);
                         const dateKey = formatDate(bYear, bMonth, bDay);
+
+                        // Вычисляем возраст
+                        const age = calculateAge(b.date);
+                        const label = '🎂 ' + b.name + (age > 0 ? ' (' + age + ')' : '');
+
                         if (!state.events[dateKey]) state.events[dateKey] = [];
                         let hasBD = false;
-                        const label = b.age ? '🎂 ' + b.name + ' (' + b.age + ')' : '🎂 ' + b.name;
                         for (let e = 0; e < state.events[dateKey].length; e++) {
                             if (state.events[dateKey][e].type === 'birthday' && state.events[dateKey][e].title === label) {
                                 hasBD = true;
@@ -1146,13 +1159,11 @@
                         }
                     }
                 }
-
-                saveState();
             }
 
             function saveState() {
                 try {
-                    localStorage.setItem('plannerData_v6', JSON.stringify(state));
+                    localStorage.setItem('plannerData_v7', JSON.stringify(state));
                 } catch (e) {
                     console.warn('Ошибка сохранения:', e);
                 }
@@ -1265,6 +1276,40 @@
                     }
                 }
                 return Object.values(types);
+            }
+
+            // ===== РАСЧЁТ ЧАСОВ АЛЬФЫ =====
+            function calculateAlphaHours(monthPrefix) {
+                let scheduled = 0;
+                let worked = 0;
+
+                for (const dateKey in state.events) {
+                    if (state.events.hasOwnProperty(dateKey) && dateKey.startsWith(monthPrefix)) {
+                        const events = state.events[dateKey];
+                        for (let i = 0; i < events.length; i++) {
+                            const ev = events[i];
+                            if (ev.type === 'work' && ev.timeStart && ev.timeEnd) {
+                                const start = ev.timeStart.split(':').map(Number);
+                                const end = ev.timeEnd.split(':').map(Number);
+                                const hours = (end[0] + end[1] / 60) - (start[0] + start[1] / 60);
+                                scheduled += hours;
+
+                                // Проверяем, прошло ли событие
+                                const parts = dateKey.split('-');
+                                const year = parseInt(parts[0]);
+                                const month = parseInt(parts[1]) - 1;
+                                const day = parseInt(parts[2]);
+                                const eventTime = new Date(year, month, day);
+                                eventTime.setHours(end[0], end[1], 0, 0);
+                                if (eventTime < new Date()) {
+                                    worked += hours;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return { scheduled: Math.round(scheduled * 10) / 10, worked: Math.round(worked * 10) / 10 };
             }
 
             // ===== КАЛЕНДАРЬ =====
@@ -1405,7 +1450,8 @@
                 });
 
                 if (events.length === 0) {
-                    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:15px;">Нет событий на этот день</p>';
+                    container.innerHTML =
+                        '<p style="color:var(--text-muted);text-align:center;padding:15px;">Нет событий на этот день</p>';
                     return;
                 }
 
@@ -1569,13 +1615,17 @@
                         item.priority === 'someday' ?
                         '<span class="badge badge-someday">💭 Когда-нибудь</span>' :
                         '';
+                    const linkHtml = item.link ? '<a href="' + item.link +
+                        '" target="_blank" class="media-link">🔗 ссылка</a>' : '';
                     const mediaHtml = item.media ? '<a href="' + item.media +
-                        '" target="_blank" class="media-link">📎 ссылка</a>' : '';
+                        '" target="_blank" class="media-link">📎 медиа</a>' : '';
+                    const commentHtml = item.comment ? '<div class="comment">💬 ' + item.comment + '</div>' : '';
                     div.innerHTML =
                         '<input type="checkbox" ' + (item.bought ? 'checked' : '') + ' data-index="' + i +
                         '" class="shopping-check" />' +
                         '<span class="' + (item.bought ? 'bought' : '') + '">' + item.text + '</span> ' +
-                        priorityLabel + ' ' + mediaHtml +
+                        priorityLabel + ' ' + linkHtml + ' ' + mediaHtml +
+                        commentHtml +
                         '<button data-index="' + i +
                         '" class="shopping-delete" style="margin-left:auto;background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;touch-action:manipulation;">✕</button>';
                     container.appendChild(div);
@@ -1602,7 +1652,9 @@
 
             document.getElementById('addShopping').addEventListener('click', function() {
                 const input = document.getElementById('shoppingInput');
+                const link = document.getElementById('shoppingLink');
                 const media = document.getElementById('shoppingMedia');
+                const comment = document.getElementById('shoppingComment');
                 const priority = document.getElementById('shoppingPriority').value;
                 const text = input.value.trim();
                 if (!text) return;
@@ -1610,12 +1662,16 @@
                     text: text,
                     bought: false,
                     priority: priority,
-                    media: media.value.trim() || ''
+                    link: link.value.trim() || '',
+                    media: media.value.trim() || '',
+                    comment: comment.value.trim() || ''
                 });
                 saveState();
                 renderShopping();
                 input.value = '';
+                link.value = '';
                 media.value = '';
+                comment.value = '';
             });
 
             // ===== WISHLIST =====
@@ -1630,12 +1686,16 @@
                     const div = document.createElement('div');
                     div.className = 'item';
                     const priceStr = item.price ? '💰 ' + item.price + ' ₽' : '';
+                    const linkHtml = item.link ? '<a href="' + item.link +
+                        '" target="_blank" class="media-link">🔗 ссылка</a>' : '';
                     const mediaHtml = item.media ? '<a href="' + item.media +
-                        '" target="_blank" class="media-link">📎 ссылка</a>' : '';
+                        '" target="_blank" class="media-link">📎 медиа</a>' : '';
+                    const commentHtml = item.comment ? '<div class="comment">💬 ' + item.comment + '</div>' : '';
                     div.innerHTML =
                         '<span>' + item.text + '</span>' +
                         '<span style="font-size:12px;color:var(--text-muted);">' + priceStr + '</span> ' +
-                        mediaHtml +
+                        linkHtml + ' ' + mediaHtml +
+                        commentHtml +
                         '<button data-index="' + i +
                         '" class="wishlist-delete" style="margin-left:auto;background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;touch-action:manipulation;">✕</button>';
                     container.appendChild(div);
@@ -1654,19 +1714,25 @@
             document.getElementById('addWishlist').addEventListener('click', function() {
                 const input = document.getElementById('wishlistInput');
                 const price = document.getElementById('wishlistPrice');
+                const link = document.getElementById('wishlistLink');
                 const media = document.getElementById('wishlistMedia');
+                const comment = document.getElementById('wishlistComment');
                 const text = input.value.trim();
                 if (!text) return;
                 state.wishlist.push({
                     text: text,
                     price: price.value || '',
-                    media: media.value.trim() || ''
+                    link: link.value.trim() || '',
+                    media: media.value.trim() || '',
+                    comment: comment.value.trim() || ''
                 });
                 saveState();
                 renderWishlist();
                 input.value = '';
                 price.value = '';
+                link.value = '';
                 media.value = '';
+                comment.value = '';
             });
 
             // ===== ЗАДАЧИ =====
@@ -1681,11 +1747,13 @@
                 state.tasks.forEach(function(task, i) {
                     const li = document.createElement('li');
                     const deadlineStr = task.deadline ? '🗓️ ' + task.deadline : '';
+                    const commentHtml = task.comment ? '💬 ' + task.comment : '';
                     li.innerHTML =
                         '<input type="checkbox" ' + (task.done ? 'checked' : '') + ' data-index="' + i +
                         '" class="task-check" />' +
                         '<span class="todo-text" style="' + (task.done ? 'text-decoration:line-through;color:var(--text-muted);' :
-                            '') + '">' + task.text + '</span>' +
+                            '') + '">' + task.text + ' <span style="font-size:11px;color:var(--text-muted);">' +
+                        commentHtml + '</span></span>' +
                         '<span class="todo-deadline">' + deadlineStr + '</span>' +
                         '<button data-index="' + i +
                         '" class="todo-delete" style="background:none;border:none;font-size:18px;color:#ef4444;cursor:pointer;touch-action:manipulation;">✕</button>';
@@ -1716,17 +1784,24 @@
             document.getElementById('addTask').addEventListener('click', function() {
                 const input = document.getElementById('taskInput');
                 const deadline = document.getElementById('taskDeadline');
+                const comment = document.getElementById('taskComment');
                 const text = input.value.trim();
                 if (!text) return;
-                state.tasks.push({ text: text, deadline: deadline.value || '', done: false });
+                state.tasks.push({
+                    text: text,
+                    deadline: deadline.value || '',
+                    done: false,
+                    comment: comment.value.trim() || ''
+                });
                 saveState();
                 renderTasks();
                 renderCalendar();
                 input.value = '';
                 deadline.value = '';
+                comment.value = '';
             });
 
-            // ===== ДНИ РОЖДЕНИЯ =====
+            // ===== ДНИ РОЖДЕНИЯ (СОРТИРОВКА ПО БЛИЖАЙШИМ) =====
             function renderBirthdays() {
                 const container = document.getElementById('birthdayList');
                 if (state.birthdays.length === 0) {
@@ -1734,13 +1809,32 @@
                         '<li style="color:var(--text-muted);text-align:center;padding:15px;list-style:none;">Нет дней рождения</li>';
                     return;
                 }
+
+                // Сортируем по дате (ближайшие сверху)
+                const sorted = state.birthdays.slice().sort(function(a, b) {
+                    const today = new Date();
+                    const getNextDate = function(birthDate) {
+                        const parts = birthDate.split('-');
+                        const bDay = parseInt(parts[2]);
+                        const bMonth = parseInt(parts[1]) - 1;
+                        const year = today.getFullYear();
+                        let date = new Date(year, bMonth, bDay);
+                        if (date < today) {
+                            date = new Date(year + 1, bMonth, bDay);
+                        }
+                        return date;
+                    };
+                    return getNextDate(a.date) - getNextDate(b.date);
+                });
+
                 container.innerHTML = '';
-                state.birthdays.forEach(function(b, i) {
+                sorted.forEach(function(b, i) {
                     const li = document.createElement('li');
-                    const ageStr = b.age ? ' (' + b.age + ' лет)' : '';
+                    const age = calculateAge(b.date);
+                    const ageStr = age > 0 ? ' (' + age + ' лет)' : '';
                     li.innerHTML =
                         '<span>🎂 <strong>' + b.name + '</strong> 🗓️ ' + b.date + ageStr + '</span>' +
-                        '<button data-index="' + i +
+                        '<button data-index="' + state.birthdays.indexOf(b) +
                         '" class="birthday-delete" style="margin-left:auto;background:none;border:none;font-size:18px;color:#ef4444;cursor:pointer;touch-action:manipulation;">✕</button>';
                     container.appendChild(li);
                 });
@@ -1756,9 +1850,9 @@
                             const bDay = parseInt(parts[2]);
                             const dateKey = formatDate(bYear, bMonth, bDay);
                             if (state.events[dateKey]) {
-                                const label = b.age ? '🎂 ' + b.name + ' (' + b.age + ')' : '🎂 ' + b.name;
+                                const label = '🎂 ' + b.name;
                                 state.events[dateKey] = state.events[dateKey].filter(function(ev) {
-                                    return !(ev.type === 'birthday' && ev.title === label);
+                                    return !(ev.type === 'birthday' && ev.title.startsWith(label));
                                 });
                                 if (state.events[dateKey].length === 0) {
                                     delete state.events[dateKey];
@@ -1776,29 +1870,23 @@
             document.getElementById('addBirthday').addEventListener('click', function() {
                 const name = document.getElementById('birthdayName').value.trim();
                 const date = document.getElementById('birthdayDate').value;
-                const age = document.getElementById('birthdayAge').value.trim();
                 if (!name || !date) return;
-                state.birthdays.push({ name: name, date: date, age: age || '' });
-                const parts = date.split('-');
-                const bYear = parseInt(parts[0]);
-                const bMonth = parseInt(parts[1]) - 1;
-                const bDay = parseInt(parts[2]);
-                const dateKey = formatDate(bYear, bMonth, bDay);
-                if (!state.events[dateKey]) state.events[dateKey] = [];
-                const label = age ? '🎂 ' + name + ' (' + age + ')' : '🎂 ' + name;
-                state.events[dateKey].push({
-                    title: label,
-                    timeStart: '',
-                    timeEnd: '',
-                    type: 'birthday',
-                    isBirthday: true
-                });
+
+                // Проверяем, нет ли уже такого человека
+                for (let i = 0; i < state.birthdays.length; i++) {
+                    if (state.birthdays[i].name === name && state.birthdays[i].date === date) {
+                        alert('❌ Этот день рождения уже добавлен!');
+                        return;
+                    }
+                }
+
+                state.birthdays.push({ name: name, date: date });
+                syncBirthdaysToCalendar();
                 saveState();
                 renderBirthdays();
                 renderCalendar();
                 document.getElementById('birthdayName').value = '';
                 document.getElementById('birthdayDate').value = '';
-                document.getElementById('birthdayAge').value = '';
             });
 
             // ===== СТАТИСТИКА =====
@@ -1836,16 +1924,26 @@
 
                 let html = '<div class="stats-grid">';
                 html += '<div class="stat-item"><div class="number">' + totalEvents +
-                    '</div><div>Всего событий</div></div>';
+                    '</div><div class="label">Всего событий</div></div>';
 
                 for (const t in byType) {
                     if (byType.hasOwnProperty(t)) {
                         html += '<div class="stat-item"><div class="number">' + byType[t] +
-                            '</div><div>' + (typeLabels[t] || t) + '</div></div>';
+                            '</div><div class="label">' + (typeLabels[t] || t) + '</div></div>';
                     }
                 }
                 html += '</div>';
 
+                // Часы Альфы
+                const alphaHours = calculateAlphaHours(prefix);
+                html += '<div class="stats-grid" style="margin-top:12px;">';
+                html += '<div class="stat-item"><div class="number">' + alphaHours.scheduled + 'ч</div><div class="label">⏰ Назначено Альфы</div></div>';
+                html += '<div class="stat-item"><div class="number">' + alphaHours.worked + 'ч</div><div class="label">✅ Отработано</div></div>';
+                html += '<div class="stat-item"><div class="number">' + (alphaHours.scheduled - alphaHours.worked) +
+                    'ч</div><div class="label">⏳ Осталось</div></div>';
+                html += '</div>';
+
+                // Остальная статистика
                 const totalTasks = state.tasks.length;
                 const doneTasks = state.tasks.filter(function(t) { return t.done; }).length;
                 const totalShop = state.shopping.length;
@@ -1856,17 +1954,17 @@
 
                 html += '<div class="stats-grid" style="margin-top:12px;">';
                 html += '<div class="stat-item"><div class="number">' + doneTasks + '/' + totalTasks +
-                    '</div><div>✅ Задачи</div></div>';
+                    '</div><div class="label">✅ Задачи</div></div>';
                 html += '<div class="stat-item"><div class="number">' + doneWeekly + '/' + totalWeekly +
-                    '</div><div>📋 Дела</div></div>';
+                    '</div><div class="label">📋 Дела</div></div>';
                 html += '<div class="stat-item"><div class="number">' + boughtShop + '/' + totalShop +
-                    '</div><div>🛒 Покупки</div></div>';
+                    '</div><div class="label">🛒 Покупки</div></div>';
                 html += '<div class="stat-item"><div class="number">' + urgentShop +
-                    '</div><div>🔥 Срочных покупок</div></div>';
+                    '</div><div class="label">🔥 Срочных покупок</div></div>';
                 html += '<div class="stat-item"><div class="number">' + state.birthdays.length +
-                    '</div><div>🎂 Дней рождения</div></div>';
+                    '</div><div class="label">🎂 Дней рождения</div></div>';
                 html += '<div class="stat-item"><div class="number">' + state.wishlist.length +
-                    '</div><div>💝 Wishlist</div></div>';
+                    '</div><div class="label">💝 Wishlist</div></div>';
                 html += '</div>';
 
                 container.innerHTML = html;
@@ -1916,14 +2014,11 @@
             window.addEventListener('beforeunload', saveState);
 
             console.log('📋 Планировщик загружен! Сентябрь 2026');
-            console.log('🌙 Нажмите на кнопку в правом нижнем углу для переключения темы');
-            console.log('✅ Альфа — просто буква A (без цифр)');
-            console.log('⏰ Прошедшие события — бледные');
-            console.log('📎 В покупки и wishlist можно добавлять ссылки');
-            console.log('🎂 ДР отображаются с возрастом');
-            console.log('🏋️ Тренировка — синий фон');
-            console.log('📋 Задачи — бежевый фон');
-            console.log('📋 Новая вкладка "Список дел на неделю"');
+            console.log('🎂 Возраст вычисляется автоматически');
+            console.log('📅 ДР сортируются по ближайшим датам');
+            console.log('💬 Добавлены комментарии к задачам и wishlist');
+            console.log('⏰ В статистике — часы Альфы (назначено/отработано)');
+            console.log('🔗 Отдельные поля для ссылки на товар и медиа');
 
         })();
     </script>
